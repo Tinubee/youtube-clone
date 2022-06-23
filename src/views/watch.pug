@@ -1,4 +1,7 @@
 extends layout.pug
 
 block content
-    h1 Watch Vidoe 
+    div 
+        p=video.description
+        small=video.createdAt 
+    a(href=`${video.id}/edit`) Edit Video &rarr;
