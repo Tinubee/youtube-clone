@@ -1,0 +1,11 @@
+extends layout.pug
+
+block content
+    if errMessage
+        span=errMessage
+    form(method="POST")
+        input(name="name", type="text", placeholder="Name", required, value=user.name)
+        input(name="username", type="text", placeholder="Username", required, value=user.username)
+        input(name="email", type="email", placeholder="Email", required, value=user.email)
+        input(name="location", type="text", placeholder="Location", required, value=user.location)
+        input(type="submit", value="Update Profile")

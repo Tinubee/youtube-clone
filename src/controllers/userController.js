@@ -2,19 +2,19 @@ import User from "../models/User";
 import fetch from "cross-fetch";
 import bcrypt from "bcrypt";
 
-export const getJoin = (req, res) => res.render("join", { pageTitle: "join" });
+export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
   const { name, email, username, password, password2, location } = req.body;
   const exists = await User.exists({ $or: [{ username }, { email }] });
   if (password !== password2) {
     return res.status(400).render("join", {
-      pageTitle: "join",
+      pageTitle: "Join",
       errMessage: "Passwords do not match",
     });
   }
   if (exists) {
     return res.status(400).render("join", {
-      pageTitle: "join",
+      pageTitle: "Join",
       errMessage: "Username or email already exists",
     });
   }
@@ -28,8 +28,9 @@ export const postJoin = async (req, res) => {
     });
     return res.redirect("/login");
   } catch (err) {
+    console.log(err);
     return res.status(400).render("join", {
-      pageTitle: "join",
+      pageTitle: "Join Error",
       errMessage: err._message,
     });
   }
@@ -63,15 +64,14 @@ export const postLogin = async (req, res) => {
 };
 
 export const startGithubLogin = (req, res) => {
-  const baseURL = `https://github.com/login/oauth/authorize`;
+  const baseUrl = "https://github.com/login/oauth/authorize";
   const config = {
     client_id: process.env.GH_CLIENT,
     allow_signup: false,
     scope: "read:user user:email",
   };
   const params = new URLSearchParams(config).toString();
-  const finalUrl = `${baseURL}?${params}`;
-
+  const finalUrl = `${baseUrl}?${params}`;
   return res.redirect(finalUrl);
 };
 
@@ -137,7 +137,44 @@ export const finishGithubLogin = async (req, res) => {
   }
 };
 
-export const edit = (req, res) => res.send("Edit User");
+export const getEdit = (req, res) => {
+  return res.render("edit-profile", { pageTitle: "Edit Profile" });
+};
+
+export const postEdit = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { name, email, username, location },
+  } = req;
+
+  if (
+    req.session.user.username !== username ||
+    req.session.user.email !== email
+  ) {
+    const exists = await User.exists({ $or: [{ username }, { email }] });
+    if (exists) {
+      return res.status(400).render("edit-profile", {
+        pageTitle: "Edit Profile",
+        errMessage: "Username or email already exists",
+      });
+    }
+  }
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      name,
+      email,
+      username,
+      location,
+    },
+    { new: true }
+  );
+  req.session.user = updatedUser;
+  return res.redirect("/users/edit");
+};
+
 export const logout = (req, res) => {
   req.session.destroy();
   return res.redirect("/");
