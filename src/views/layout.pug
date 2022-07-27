@@ -13,6 +13,8 @@ html(lang="ko")
                     if isLoggedIn
                         li
                             a(href="/videos/upload") Upload Video
+                        li
+                            a(href=`/users/${user._id}`) My Profile 
                         li 
                             a(href="/users/edit") Edit Profile
                         li 

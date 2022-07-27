@@ -1,0 +1,9 @@
+extends ../layout.pug
+include ../mixins/video
+
+block content
+    if errMessage
+   
+    each video in videos
+        +video(video)
+    
