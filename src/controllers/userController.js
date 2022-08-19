@@ -28,7 +28,6 @@ export const postJoin = async (req, res) => {
     });
     return res.redirect("/login");
   } catch (err) {
-    console.log(err);
     return res.status(400).render("join", {
       pageTitle: "Join Error",
       errMessage: err._message,
@@ -226,10 +225,11 @@ export const see = async (req, res) => {
       model: "User",
     },
   });
-  console.log(user);
   if (!user) {
     return res.status(404).render("404", { pageTitle: "User not found" });
   }
+
+  console.log(user);
 
   return res.render("users/profile", {
     pageTitle: user.name,
