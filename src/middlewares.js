@@ -10,6 +10,7 @@ export const protectorMiddleware = (req, res, next) => {
   if (req.session.loggedIn) {
     next();
   } else {
+    req.flash("error", "Please log in to view this page");
     return res.redirect("/login");
   }
 };
@@ -18,6 +19,7 @@ export const publicOnlyMiddleware = (req, res, next) => {
   if (!req.session.loggedIn) {
     return next();
   } else {
+    req.flash("error", "You are already logged in");
     return res.redirect("/");
   }
 };
