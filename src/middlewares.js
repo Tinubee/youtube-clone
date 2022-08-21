@@ -9,7 +9,7 @@ const s3 = new aws.S3({
   },
 });
 
-const multerUploader = multer({
+const multerUploader = multerS3({
   s3: s3,
   bucket: "tinubee-youtube",
   acl: "public-read",
