@@ -62,6 +62,73 @@ export const postLogin = async (req, res) => {
   return res.redirect("/");
 };
 
+export const startKakaoLogin = (req, res) => {
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_REST_API}&redirect_uri=${process.env.REDIRECT_URI}&response_type=code`;
+
+  return res.redirect(KAKAO_AUTH_URL);
+};
+
+export const finishKakaoLogin = async (req, res) => {
+  const baseURL = "https://kauth.kakao.com/oauth/token";
+  const config = {
+    grant_type: "authorization_code",
+    client_id: process.env.KAKAO_REST_API,
+    redirect_uri: process.env.REDIRECT_URI,
+    code: req.query.code,
+    client_secret: process.env.KAKAO_CLIENT_SECRET,
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseURL}?${params}`;
+
+  const tokenRequest = await (
+    await fetch(finalUrl, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+      },
+    })
+  ).json();
+
+  console.log(tokenRequest);
+
+  if ("access_token" in tokenRequest) {
+    const { access_token } = tokenRequest;
+    const apiUrl = `https://kapi.kakao.com/v2/user/me`;
+    const userData = await (
+      await fetch(`${apiUrl}`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+    ).json();
+
+    const {
+      kakao_account: {
+        email,
+        profile: { profile_image_url, nickname },
+      },
+    } = userData;
+
+    let user = await User.findOne({ email: email });
+    if (!user) {
+      user = await User.create({
+        avatarUrl: profile_image_url,
+        name: nickname,
+        username: nickname,
+        email: email,
+        password: "",
+        socialOnly: true,
+        location: "",
+      });
+    }
+    req.session.loggedIn = true;
+    req.session.user = user;
+    return res.redirect("/");
+  } else {
+    return res.redirect("/login");
+  }
+};
+
 export const startGithubLogin = (req, res) => {
   const baseUrl = "https://github.com/login/oauth/authorize";
   const config = {

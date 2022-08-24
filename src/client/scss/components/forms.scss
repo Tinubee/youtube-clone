@@ -42,3 +42,11 @@ input[type="submit"],
     pointer-events: none;
   }
 }
+
+.kakaologin__btn {
+  display: block;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  margin-top: 10px;
+}
