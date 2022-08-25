@@ -89,8 +89,6 @@ export const finishKakaoLogin = async (req, res) => {
     })
   ).json();
 
-  console.log(tokenRequest);
-
   if ("access_token" in tokenRequest) {
     const { access_token } = tokenRequest;
     const apiUrl = `https://kapi.kakao.com/v2/user/me`;

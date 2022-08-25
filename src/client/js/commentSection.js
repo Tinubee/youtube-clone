@@ -2,7 +2,7 @@ const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 
 const addComment = (text, id) => {
-  const videoComments = document.querySelector(".video__comments ul");
+  const videoComments = document.querySelector(".video__commentlist ul");
   const newComment = document.createElement("li");
   newComment.dataset.id = id;
   newComment.className = "video__comment";

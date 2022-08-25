@@ -13,13 +13,17 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner").populate("comments");
+  let comments = [];
 
-  console.log(video);
+  for (let i = 0; i < video.comments.length; i++) {
+    let commentOwner = await video.comments[i].populate("owner");
+    comments.push(commentOwner);
+  }
 
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found" });
   }
-  return res.render("watch", { pageTitle: video.title, video });
+  return res.render("watch", { pageTitle: video.title, video, comments });
 };
 
 export const getEdit = async (req, res) => {
@@ -86,7 +90,7 @@ export const postUpload = async (req, res) => {
       owner: _id,
       hashtags: Video.formatHashtags(hashtags),
     });
-    console.log(newVideo);
+
     const user = await User.findById(_id);
     user.videos.push(newVideo._id);
     user.save();
@@ -161,6 +165,17 @@ export const createComment = async (req, res) => {
 
     video.comments.push(comment._id);
     video.save();
-    return res.status(201).json({ newCommentId: comment._id });
+    return res.status(201).json({ newCommentId: comment._id, user });
+  }
+};
+
+export const like = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+
+  if (!video) {
+    return res.sendStatus(404);
+  } else {
+    return res.sendStatus(200);
   }
 };

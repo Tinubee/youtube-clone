@@ -112,8 +112,11 @@ const handleEnded = () => {
   });
 };
 
-const handleLikeVideo = () => {
-  console.log("like");
+const handleLikeVideo = async () => {
+  const { id } = videoContainer.dataset;
+  fetch(`/api/videos/${id}/like`, {
+    method: "POST",
+  });
   likeIcon.style.color = "#3ea6ff";
 };
 const handleUnLikeVideo = () => {

@@ -54,13 +54,13 @@
   }
 }
 
-.video__comments {
-  .video__comments__avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-  }
+.video__comments__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
 
+.video__comments {
   .video__comment-addbtn {
     background-color: #3EA6FF;
     border: none;
@@ -78,12 +78,33 @@
 }
 
 .video__comment {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   padding: 10px;
   text-align: center;
   border-radius: 100px;
   background-color: white;
   color: black;
-  margin-bottom: 10px;
+  margin: 10px 0px;
+  .video__comments__owner{
+    display: flex;
+    align-items: center;
+  }
+  .comment__username{
+    font-weight: 600;
+    margin: 0px 10px;
+  }
+  .comment__createdAt{
+    font-size: 12px;
+  }
+}
+
+.video__comments-text{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 8px 10px 0px 10px;
 }
 
 .video-mixin__owner-avatar {
