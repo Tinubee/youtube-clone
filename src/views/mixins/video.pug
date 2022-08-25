@@ -3,7 +3,13 @@ mixin video(video)
         div.video-mixin__thumb(style=`background-image:url(/${video.thumbUrl});background-size:cover;background-position:center;`)
         div.video-mixin__data
             div.video-mixin__header
-                img.video-mixin__owner-avatar(src=video.owner.avatarUrl)
+                if video.owner.avatarUrl.includes("k.kakaocdn.net")
+                    img.video-mixin__owner-avatar(src=video.owner.avatarUrl)
+                else
+                    if video.owner.avatarUrl.startsWith("https://") 
+                        img.video-mixin__owner-avatar(src=video.owner.avatarUrl,crossorigin)
+                    else 
+                        img.video-mixin__owner-avatar(src="/"+video.owner.avatarUrl,crossorigin)
                 div.video-mixin__title=video.title
             div.video-mixin__meta
                 span #{video.owner.name} | 

@@ -8,10 +8,12 @@
     display: flex;
     color: #4c43ea;
     font-size: 14px;
+    margin: 10px 0px;
   }
   .video__title {
     font-size: 26px;
     margin-bottom: 5px;
+    font-weight: 700;
   }
   
   .video__meta-container{
@@ -21,6 +23,7 @@
   .video__views,
   .video__createdAt {
     font-size: 12px;
+    opacity: 0.5;
   }
 
   .video__createdAt {
