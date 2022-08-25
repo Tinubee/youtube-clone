@@ -20,9 +20,12 @@ header
                         else
                             if user.avatarUrl.includes("k.kakaocdn.net")
                                 img.header__avatar(src=user.avatarUrl)
-                            else 
-                                img.header__avatar(src="/"+user.avatarUrl,crossorigin)
-            else
+                            else
+                                if user.avatarUrl.startsWith("https://") 
+                                    img.header__avatar(src=user.avatarUrl,crossorigin)
+                                else 
+                                    img.header__avatar(src="/"+user.avatarUrl,crossorigin)
+            else        
                 li
                     a(href="/login")  Login                        
                 li

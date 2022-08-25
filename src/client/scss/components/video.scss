@@ -1,21 +1,125 @@
 // video mixin
 .video-mixin {
-    .video-mixin__thumb {
-      height: 140px;
-      border-radius: 7px;
-      width: 100%;
-      background-color: ivory;
+  .video-mixin__thumb {
+    height: 140px;
+    border-radius: 7px;
+    width: 100%;
+    background-color: ivory;
+  }
+
+  .video-mixin__data {
+    padding: 0px 10px;
+
+    .video-mixin__title {
+      font-size: 18px;
+      display: block;
+      margin-top: 10px;
     }
-    .video-mixin__data {
-      padding: 0px 15px;
-      .video-mixin__title {
-        font-size: 18px;
-        display: block;
-        margin-top: 10px;
-      }
-      .video-mixin__meta {
-        margin-top: 5px;
-        font-size: 12px;
-      }
+
+    .video-mixin__meta {
+      margin-top: 8px;
+      font-size: 12px;
+      opacity: 0.5;
     }
   }
+}
+
+.video-mixin__header {
+  display: flex;
+  margin-top: 10px;
+}
+
+.video-mixin__meta-createtime {
+  margin-top: 5px;
+}
+
+.video__bottom {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 10px 0px;
+}
+
+.video__owner-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 10px;
+
+  .video__subscript-container,
+  .video__owner-info {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.video__comments {
+  .video__comments__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+  .video__comment-addbtn {
+    background-color: #3EA6FF;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .video__comments-form {
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.video__comment {
+  padding: 10px;
+  text-align: center;
+  border-radius: 100px;
+  background-color: white;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.video-mixin__owner-avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 14px;
+}
+
+.video__owner-avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 14px;
+}
+
+.video__subscript {
+  background-color: red;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.video__description{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px
+}
+
+.video__iconscontainer {
+  display: flex;
+
+  .video-like,
+  .video-unlike,
+  .video-share {
+    margin: 0px 10px;
+    cursor: pointer;
+  }
+}

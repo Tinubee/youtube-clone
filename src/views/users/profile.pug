@@ -9,8 +9,10 @@ block content
             if user.avatarUrl.includes("k.kakaocdn.net")
                 img.header__avatar(src=user.avatarUrl).avatar
             else 
-                img.header__avatar(src="/"+user.avatarUrl,crossorigin).avatar
-
+                if user.avatarUrl.startsWith("https://") 
+                    img.header__avatar(src=user.avatarUrl,crossorigin).avatar
+                else 
+                    img.header__avatar(src="/"+user.avatarUrl,crossorigin).avatar
         h3=user.name
     div.video-grid
         each video in user.videos

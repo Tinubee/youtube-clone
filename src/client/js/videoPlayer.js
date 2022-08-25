@@ -12,6 +12,10 @@ const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
 
+const likeIcon = document.getElementById("videoLike");
+const unlikeIcon = document.getElementById("videoUnLike");
+const shareIcon = document.getElementById("videoShare");
+
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
 let volumeValue = 0.5;
@@ -108,6 +112,17 @@ const handleEnded = () => {
   });
 };
 
+const handleLikeVideo = () => {
+  console.log("like");
+  likeIcon.style.color = "#3ea6ff";
+};
+const handleUnLikeVideo = () => {
+  console.log("unlike");
+};
+const handleShareVideo = () => {
+  console.log("share");
+};
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
@@ -118,3 +133,7 @@ videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullscreen);
+
+likeIcon.addEventListener("click", handleLikeVideo);
+unlikeIcon.addEventListener("click", handleUnLikeVideo);
+shareIcon.addEventListener("click", handleShareVideo);
