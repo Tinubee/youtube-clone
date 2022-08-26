@@ -2,6 +2,8 @@ extends layout.pug
 include mixins/video
 
 block content
+    div.hashtag-grid
+        div 전체
     div.video-grid
         each video in videos
             +video(video)

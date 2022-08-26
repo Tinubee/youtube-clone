@@ -16,5 +16,6 @@ mixin video(video)
                 div.video-mixin__title=video.title
             div.video-mixin__meta
                 span #{video.owner.name} | 
-                span 조회수 : #{video.meta.views} 회
+                span
+                    i.fas.fa-eye  #{video.meta.views} 회
                 div.video-mixin__meta-createtime #{video.createdAt.toLocaleString()}

@@ -83,9 +83,11 @@ const handleFullscreen = () => {
   if (fullscreen) {
     document.exitFullscreen();
     fullScreenIcon.classList = "fas fa-expand";
+    video.style.height = "500px";
   } else {
     videoContainer.requestFullscreen();
     fullScreenIcon.classList = "fas fa-compress";
+    video.style.height = "100%";
   }
 };
 

@@ -28,7 +28,8 @@ block content
                 span=hashtag     
         p.video__title=video.title
         div.video__meta-container
-            small.video__views 조회수 : #{video.meta.views} 회
+            small.video__views 
+                i.fas.fa-eye  #{video.meta.views} 회
             small.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
         div.video__description
             div #{video.description}
