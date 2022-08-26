@@ -285,6 +285,10 @@ export const postChangePassword = async (req, res) => {
 
 export const see = async (req, res) => {
   const { id } = req.params;
+  if (id === "undefined") {
+    return res.redirect("/login");
+  }
+
   const user = await User.findById(id).populate({
     path: "videos",
     populate: {
