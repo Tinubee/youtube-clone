@@ -3,11 +3,11 @@ include mixins/video
 include mixins/hashtag
 
 block content
-    div.hashtag-grid
+    div#hashtagGrid.hashtag-grid
         each hashtag in hashtags
             +hashtag(hashtag)
     div.video-grid
-        each video in videos
+        each video in searchVideos
             +video(video)
         else
             span.empty__message No videos found

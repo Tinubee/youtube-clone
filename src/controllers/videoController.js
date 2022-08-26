@@ -2,12 +2,45 @@ import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
 
+export const hashtaghome = async (req, res) => {
+  const { hashtag } = req.params;
+
+  const searchVideos = [];
+  const videos = await Video.find({})
+    .sort({ createdAt: "desc" })
+    .populate("owner");
+
+  for (let i = 0; i < videos.length; i++) {
+    if (videos[i].hashtags.includes("#" + hashtag)) {
+      searchVideos.push(videos[i]);
+    }
+  }
+
+  const allHashtags = ["전체"];
+  for (let i = 0; i < videos.length; i++) {
+    allHashtags.push(...videos[i].hashtags);
+  }
+  const hashtags = [...new Set(allHashtags)];
+
+  return res.status(200).render("hashtaghome", {
+    pageTitle: "HashTag Home",
+    searchVideos,
+    hashtags,
+  });
+};
+
 export const home = async (req, res) => {
   const videos = await Video.find({})
     .sort({ createdAt: "desc" })
     .populate("owner");
 
-  return res.render("home", { pageTitle: "Home", videos });
+  const allHashtags = ["전체"];
+  for (let i = 0; i < videos.length; i++) {
+    allHashtags.push(...videos[i].hashtags);
+  }
+  const hashtags = [...new Set(allHashtags)];
+
+  return res.render("home", { pageTitle: "Home", videos, hashtags });
 };
 
 export const watch = async (req, res) => {

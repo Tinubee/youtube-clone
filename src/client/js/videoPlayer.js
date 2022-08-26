@@ -131,6 +131,10 @@ const handleShareVideo = () => {
   console.log("share");
 };
 
+const handleSelectHashTag = () => {
+  console.log("handleSelectHashTag");
+};
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);

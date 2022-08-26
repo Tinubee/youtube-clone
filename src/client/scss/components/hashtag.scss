@@ -1,0 +1,25 @@
+.hashtag-grid{
+    display: flex;
+    margin-bottom: 15px;
+    overflow: scroll;
+    white-space: nowrap;
+    gap: 10px;
+    &::-webkit-scrollbar-thumb {
+        border-radius: 15px;
+        background-color: gray;
+    }
+    &::-webkit-scrollbar {
+        width: 0px;    
+    }
+    .hashtag{
+        padding: 10px;
+        background-color: gray;
+        border-radius: 20px;
+        color: black;
+        font-size: 12px;
+        cursor: pointer;
+        &:hover{
+            background-color: whitesmoke;
+        }
+    }
+}
