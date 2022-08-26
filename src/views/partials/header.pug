@@ -3,16 +3,16 @@ header
         i.fab.fa-youtube
     nav
         ul
-            li
-                a(href="/search")
-                    i.fas.fa-search
             if isLoggedIn
                 li
-                    a(href="/videos/upload") Upload Video
+                    a(href="/videos/upload")
+                        i.fas.fa-video
                 li
-                    a(href="/users/edit") Edit Profile
+                    a(href="/users/edit")
+                        i.fas.fa-user-cog
                 li
-                    a(href="/users/logout")  Log Out
+                    a(href="/users/logout")
+                        i.fas.fa-sign-out-alt
                 li
                     a(href=`/users/${user._id}`)
                         if !user.avatarUrl

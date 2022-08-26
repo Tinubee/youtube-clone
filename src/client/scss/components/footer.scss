@@ -1,5 +1,13 @@
 footer {
-    text-align: center;
-    font-size: 12px;
-    margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 50px;
+  align-items: flex-end;
+  i,
+  a,
+  span {
+    padding: 5px 0px;
   }
+}

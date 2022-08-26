@@ -11,7 +11,6 @@ import { publicOnlyMiddleware } from "../middlewares";
 const rootRouter = express.Router();
 
 rootRouter.get("/", home);
-rootRouter.get("/hashtag/:hashtag", hashtaghome);
 rootRouter.route("/join").all(publicOnlyMiddleware).get(getJoin).post(postJoin);
 rootRouter
   .route("/login")
@@ -19,5 +18,6 @@ rootRouter
   .get(getLogin)
   .post(postLogin);
 rootRouter.get("/search", search);
+rootRouter.get("/:hashtag", hashtaghome);
 
 export default rootRouter;

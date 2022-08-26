@@ -12,7 +12,6 @@
 @import "./components/social-login.scss";
 @import "./components/video-player.scss";
 @import "./components/hashtag.scss";
-
 // Screens
 
 @import "./screens/search.scss";
@@ -20,6 +19,7 @@
 @import "./screens/edit-profile.scss";
 @import "./screens/upload.scss";
 @import "./screens/watch.scss";
+@import "./screens/sidebar.scss";
 
 
 // Defaults
@@ -39,7 +39,6 @@ main {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  margin-top: 50px;
 }
 
 @keyframes fadeIn {

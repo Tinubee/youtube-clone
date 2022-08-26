@@ -1,0 +1,33 @@
+.main-view {
+	display: flex;
+}
+
+.sidebar {
+	width: 10vw;
+	height: 100vh;
+	background: rgb(30, 30, 30, 0.5);
+	border-radius: 5px;
+	margin-left: 10px;
+	.nav {
+		padding: 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		align-items: flex-start;
+
+		a {
+			color: white;
+			font-size: 15px;
+			opacity: 0.5;
+
+			&:hover {
+				color: white;
+				opacity: 1;
+			}
+
+			i {
+				margin-right: 16px;
+			}
+		}
+	}
+}

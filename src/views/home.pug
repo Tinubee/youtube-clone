@@ -3,7 +3,11 @@ include mixins/video
 include mixins/hashtag
 
 block content
-    div.hashtag-grid
+    form(method="GET").search__form-home
+        input(placeholder="Search by title",name="keyword", type="text")
+        button
+            i.fas.fa-search
+    div#hashtagGrid.hashtag-grid
         each hashtag in hashtags
             +hashtag(hashtag)
     div.video-grid
