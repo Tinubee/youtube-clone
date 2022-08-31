@@ -2,6 +2,10 @@ import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
 
+export const picture = async (req, res) => {
+  return res.render("picture", { pageTitle: "picture" });
+};
+
 export const hashtaghome = async (req, res) => {
   const { hashtag } = req.params;
 
@@ -44,8 +48,17 @@ export const home = async (req, res) => {
 };
 
 export const watch = async (req, res) => {
+  const { user } = req.session;
   const { id } = req.params;
-  const video = await Video.findById(id).populate("owner").populate("comments");
+  const video = await Video.findById(id)
+    .populate("owner")
+    .populate("like")
+    .populate("comments");
+  const findUser = await User.findById(user._id).populate("likevideos");
+  const exist = video.like.filter((e) => e.username === findUser.username);
+
+  const existLength = exist.length;
+
   let comments = [];
 
   for (let i = 0; i < video.comments.length; i++) {
@@ -56,7 +69,12 @@ export const watch = async (req, res) => {
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found" });
   }
-  return res.render("watch", { pageTitle: video.title, video, comments });
+  return res.render("watch", {
+    pageTitle: video.title,
+    video,
+    comments,
+    existLength,
+  });
 };
 
 export const getEdit = async (req, res) => {
@@ -204,11 +222,25 @@ export const createComment = async (req, res) => {
 
 export const like = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id);
+  const { user } = req.session;
 
-  if (!video) {
-    return res.sendStatus(404);
+  const video = await Video.findById(id).populate("like");
+  if (!video) return res.sendStatus(404);
+
+  const findUser = await User.findById(user._id).populate("likevideos");
+  const exist = video.like.filter((e) => e.username === findUser.username);
+
+  if (exist.length === 0) {
+    video.like.push(user);
+    video.save();
+    findUser.likevideos.push(video);
+    findUser.save();
   } else {
-    return res.sendStatus(200);
+    video.like.splice(video.like.indexOf(user._id), 1);
+    findUser.likevideos.splice(findUser.likevideos.indexOf(id), 1);
+    await video.save();
+    await findUser.save();
   }
+
+  return res.sendStatus(200);
 };

@@ -1,3 +1,5 @@
+import Video from "../../models/Video";
+
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
 const playBtnIcon = playBtn.querySelector("i");
@@ -11,6 +13,7 @@ const fullScreenBtn = document.getElementById("fullScreen");
 const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
+const videoLike = document.getElementById("videoLike");
 
 const likeIcon = document.getElementById("videoLike");
 const unlikeIcon = document.getElementById("videoUnLike");
@@ -20,6 +23,16 @@ let controlsTimeout = null;
 let controlsMovementTimeout = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
+
+const checkIsLike = () => {
+  const { id } = videoLike.dataset;
+
+  if (id === "1") {
+    likeIcon.style.color = "#3ea6ff";
+  } else {
+    likeIcon.style.color = "white";
+  }
+};
 
 const handlePlayClick = (e) => {
   if (video.paused) {
@@ -119,10 +132,10 @@ const handleEnded = () => {
 
 const handleLikeVideo = async () => {
   const { id } = videoContainer.dataset;
-  fetch(`/api/videos/${id}/like`, {
+  await fetch(`/api/videos/${id}/like`, {
     method: "POST",
   });
-  likeIcon.style.color = "#3ea6ff";
+  window.location.reload();
 };
 const handleUnLikeVideo = () => {
   console.log("unlike");
@@ -131,6 +144,7 @@ const handleShareVideo = () => {
   console.log("share");
 };
 
+checkIsLike();
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);

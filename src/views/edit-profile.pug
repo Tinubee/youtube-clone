@@ -3,6 +3,18 @@ extends layout.pug
 block content
     if errMessage
         span=errMessage
+    div.profile__data
+        if !user.avatarUrl
+            span 😀
+        else
+            if user.avatarUrl.includes("k.kakaocdn.net")
+                img.header__avatar(src=user.avatarUrl).avatar
+            else 
+                if user.avatarUrl.startsWith("https://") 
+                    img.header__avatar(src=user.avatarUrl,crossorigin).avatar
+                else 
+                    img.header__avatar(src="/"+user.avatarUrl,crossorigin).avatar
+                    
     form(method="POST", enctype="multipart/form-data").edit-profile__form
         label(for="avatar") Avatar
         input(type="file", id="avatar", name="avatar", accept="image/*")

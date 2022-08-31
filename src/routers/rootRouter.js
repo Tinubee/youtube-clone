@@ -5,7 +5,12 @@ import {
   getLogin,
   postLogin,
 } from "../controllers/userController";
-import { hashtaghome, home, search } from "../controllers/videoController";
+import {
+  hashtaghome,
+  home,
+  search,
+  picture,
+} from "../controllers/videoController";
 import { publicOnlyMiddleware } from "../middlewares";
 
 const rootRouter = express.Router();
@@ -18,6 +23,7 @@ rootRouter
   .get(getLogin)
   .post(postLogin);
 rootRouter.get("/search", search);
+rootRouter.get("/picture", picture);
 rootRouter.get("/:hashtag", hashtaghome);
 
 export default rootRouter;
