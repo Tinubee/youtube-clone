@@ -6,6 +6,10 @@ export const picture = async (req, res) => {
   return res.render("picture", { pageTitle: "picture" });
 };
 
+export const likeVideos = async (req, res) => {
+  return res.render("likevideos", { pageTitle: "Like Videos" });
+};
+
 export const hashtaghome = async (req, res) => {
   const { hashtag } = req.params;
 
@@ -48,16 +52,19 @@ export const home = async (req, res) => {
 };
 
 export const watch = async (req, res) => {
+  let existLength = 0;
   const { user } = req.session;
   const { id } = req.params;
   const video = await Video.findById(id)
     .populate("owner")
     .populate("like")
     .populate("comments");
-  const findUser = await User.findById(user._id).populate("likevideos");
-  const exist = video.like.filter((e) => e.username === findUser.username);
 
-  const existLength = exist.length;
+  if (user) {
+    const findUser = await User.findById(user._id).populate("likevideos");
+    const exist = video.like.filter((e) => e.username === findUser.username);
+    existLength = exist.length;
+  }
 
   let comments = [];
 
@@ -227,19 +234,23 @@ export const like = async (req, res) => {
   const video = await Video.findById(id).populate("like");
   if (!video) return res.sendStatus(404);
 
-  const findUser = await User.findById(user._id).populate("likevideos");
-  const exist = video.like.filter((e) => e.username === findUser.username);
+  if (user) {
+    const findUser = await User.findById(user._id).populate("likevideos");
+    const exist = video.like.filter((e) => e.username === findUser.username);
 
-  if (exist.length === 0) {
-    video.like.push(user);
-    video.save();
-    findUser.likevideos.push(video);
-    findUser.save();
+    if (exist.length === 0) {
+      video.like.push(user);
+      video.save();
+      findUser.likevideos.push(video);
+      findUser.save();
+    } else {
+      video.like.splice(video.like.indexOf(user._id), 1);
+      findUser.likevideos.splice(findUser.likevideos.indexOf(id), 1);
+      await video.save();
+      await findUser.save();
+    }
   } else {
-    video.like.splice(video.like.indexOf(user._id), 1);
-    findUser.likevideos.splice(findUser.likevideos.indexOf(id), 1);
-    await video.save();
-    await findUser.save();
+    req.flash("error", "Please Login if you want like to video");
   }
 
   return res.sendStatus(200);
