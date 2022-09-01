@@ -9,6 +9,7 @@ module.exports = {
     videoPlayer: BASE_JSPATH + "videoPlayer.js",
     recorder: BASE_JSPATH + "recorder.js",
     commentSection: BASE_JSPATH + "commentSection.js",
+    location: BASE_JSPATH + "location.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

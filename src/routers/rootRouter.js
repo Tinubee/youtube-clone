@@ -10,6 +10,7 @@ import {
   home,
   search,
   picture,
+  likeVideos,
 } from "../controllers/videoController";
 import { publicOnlyMiddleware } from "../middlewares";
 
@@ -24,6 +25,7 @@ rootRouter
   .post(postLogin);
 rootRouter.get("/search", search);
 rootRouter.get("/picture", picture);
+rootRouter.get("/likevideos", likeVideos);
 rootRouter.get("/:hashtag", hashtaghome);
 
 export default rootRouter;

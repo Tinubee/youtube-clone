@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema({
   location: String,
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
-  subsript: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  subsript: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], //내가 구독한사람
+  subscriber: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], //나의 구독자
   likevideos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
 });
 

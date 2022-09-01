@@ -2,7 +2,18 @@ import User from "../models/User";
 import fetch from "cross-fetch";
 import bcrypt from "bcrypt";
 
-export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
+function onGeoOk(position) {
+  const lat = position.coords.latitude;
+  const lng = position.coords.longitude;
+  console.log("You live in", lat, lng);
+}
+function onGeoError() {
+  alert("Can't find you. No weather for you.");
+}
+
+export const getJoin = (req, res) => {
+  res.render("join", { pageTitle: "Join" });
+};
 export const postJoin = async (req, res) => {
   const { name, email, username, password, password2, location } = req.body;
   const exists = await User.exists({ $or: [{ username }, { email }] });
@@ -284,24 +295,27 @@ export const postChangePassword = async (req, res) => {
 };
 
 export const see = async (req, res) => {
+  const { user } = req.session;
   const { id } = req.params;
   if (id === "undefined") {
     return res.redirect("/login");
   }
 
-  const user = await User.findById(id).populate({
+  const seeuser = await User.findById(id).populate({
     path: "videos",
     populate: {
       path: "owner",
       model: "User",
     },
   });
-  if (!user) {
+
+  if (!seeuser) {
     return res.status(404).render("404", { pageTitle: "User not found" });
   }
 
   return res.render("users/profile", {
     pageTitle: user.name,
     user,
+    seeuser,
   });
 };

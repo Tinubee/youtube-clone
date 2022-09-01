@@ -1,6 +1,8 @@
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 const subscriptButton = document.getElementById("subscriptBtn");
+const videoOwner = document.getElementById("videoOwner");
+const loginUser = document.getElementById("loginUser");
 
 const addComment = (text, id) => {
   const videoComments = document.querySelector(".video__commentlist ul");
@@ -39,12 +41,19 @@ const handleSubmit = async (event) => {
   }
 };
 
-const handleSubscription = (event) => {
-  console.log(event);
+const handleSubscription = async () => {
+  const { id } = videoOwner.dataset;
+  const response = await fetch(`/api/user/${id}/subscript`, {
+    method: "POST",
+  });
+
+  window.location.reload();
 };
 
 if (form) {
   form.addEventListener("submit", handleSubmit);
 }
 
-subscriptButton.addEventListener("click", handleSubscription);
+if (videoOwner.dataset.id !== loginUser.dataset.id) {
+  subscriptButton.addEventListener("click", handleSubscription);
+}

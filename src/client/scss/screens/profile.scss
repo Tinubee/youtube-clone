@@ -5,15 +5,20 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 50px;
+    gap: 5px;
     img {
       margin-bottom: 10px;
-    }
-    h3 {
-      font-size: 18px;
     }
     span{
         font-size: 100px;
         margin-bottom: 10px;
         color: #777;
+    }
+    .user_name{
+      font-size: 28px;
+    }
+    .user_subscriber{
+      font-size: 15px;
+      opacity: 0.5;
     }
   }

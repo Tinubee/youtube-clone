@@ -1,6 +1,7 @@
 import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
+import { captureRejectionSymbol } from "connect-mongo";
 
 export const picture = async (req, res) => {
   return res.render("picture", { pageTitle: "picture" });
@@ -53,6 +54,7 @@ export const home = async (req, res) => {
 
 export const watch = async (req, res) => {
   let existLength = 0;
+  let isSubsLength = 0;
   const { user } = req.session;
   const { id } = req.params;
   const video = await Video.findById(id)
@@ -61,8 +63,14 @@ export const watch = async (req, res) => {
     .populate("comments");
 
   if (user) {
-    const findUser = await User.findById(user._id).populate("likevideos");
+    const findUser = await User.findById(user._id)
+      .populate("likevideos")
+      .populate("subsript");
     const exist = video.like.filter((e) => e.username === findUser.username);
+    const isSubs = findUser.subsript.filter(
+      (e) => e.username === video.owner.username
+    );
+    isSubsLength = isSubs.length;
     existLength = exist.length;
   }
 
@@ -81,6 +89,7 @@ export const watch = async (req, res) => {
     video,
     comments,
     existLength,
+    isSubsLength,
   });
 };
 
@@ -251,6 +260,44 @@ export const like = async (req, res) => {
     }
   } else {
     req.flash("error", "Please Login if you want like to video");
+  }
+
+  return res.sendStatus(200);
+};
+
+export const userSubscript = async (req, res) => {
+  const { id } = req.params; //구독할 아이디 -> subscriber에 user 추가
+  const { user } = req.session; //내 아이디 -> subsript에 id 추가
+
+  if (user) {
+    const subscriptUser = await User.findById(id)
+      .populate("subscriber")
+      .populate("subsript");
+
+    const findMe = await User.findById(user._id)
+      .populate("subsript")
+      .populate("subscriber");
+
+    const alreadySubs = findMe.subsript.filter(
+      (e) => e.username === subscriptUser.username
+    );
+
+    if (alreadySubs.length === 0) {
+      subscriptUser.subscriber.push(user);
+      await subscriptUser.save();
+      findMe.subsript.push(subscriptUser);
+      await findMe.save();
+    } else {
+      subscriptUser.subscriber.splice(
+        subscriptUser.subscriber.indexOf(user),
+        1
+      );
+      await subscriptUser.save();
+      findMe.subsript.splice(findMe.subsript.indexOf(subscriptUser), 1);
+      await findMe.save();
+    }
+  } else {
+    return res.sendStatus(400);
   }
 
   return res.sendStatus(200);

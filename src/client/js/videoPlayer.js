@@ -1,5 +1,3 @@
-import Video from "../../models/Video";
-
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
 const playBtnIcon = playBtn.querySelector("i");
@@ -18,11 +16,23 @@ const videoLike = document.getElementById("videoLike");
 const likeIcon = document.getElementById("videoLike");
 const unlikeIcon = document.getElementById("videoUnLike");
 const shareIcon = document.getElementById("videoShare");
+const subscriptBtn = document.getElementById("subscriptBtn");
 
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
+
+const checkIsSubs = () => {
+  const { id } = subscriptBtn.dataset;
+  if (id === "1") {
+    subscriptBtn.style.backgroundColor = "gray";
+    subscriptBtn.innerText = "구독중 🔔";
+  } else {
+    subscriptBtn.style.backgroundColor = "red";
+    subscriptBtn.innerText = "구독";
+  }
+};
 
 const checkIsLike = () => {
   const { id } = videoLike.dataset;
@@ -125,6 +135,7 @@ const handleMouseLeave = () => {
 
 const handleEnded = () => {
   const { id } = videoContainer.dataset;
+  playBtnIcon.classList = "fas fa-redo-alt";
   fetch(`/api/videos/${id}/view`, {
     method: "POST",
   });
@@ -145,6 +156,7 @@ const handleShareVideo = () => {
 };
 
 checkIsLike();
+checkIsSubs();
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
