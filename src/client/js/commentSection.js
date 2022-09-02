@@ -4,7 +4,7 @@ const subscriptButton = document.getElementById("subscriptBtn");
 const videoOwner = document.getElementById("videoOwner");
 const loginUser = document.getElementById("loginUser");
 const deleteComment = document.getElementById("deleteComment");
-const deleteBtnIcon = deleteComment.querySelector("i");
+let deleteBtnIcon;
 const videoComment = document.getElementById("videoComment");
 
 const addComment = (text, id) => {
@@ -86,6 +86,9 @@ if (videoOwner.dataset.id !== loginUser.dataset.id) {
   subscriptButton.addEventListener("click", handleSubscription);
 }
 
-deleteComment.addEventListener("click", handleDeleteComment);
-deleteComment.addEventListener("mouseover", handleDeleteBtnIcon);
-deleteComment.addEventListener("mouseleave", handleMouseLeave);
+if (deleteComment) {
+  deleteBtnIcon = deleteComment.querySelector("i");
+  deleteComment.addEventListener("click", handleDeleteComment);
+  deleteComment.addEventListener("mouseover", handleDeleteBtnIcon);
+  deleteComment.addEventListener("mouseleave", handleMouseLeave);
+}
