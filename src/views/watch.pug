@@ -87,21 +87,25 @@ block content
         div.video__commentlist
             ul 
                 each comment in video.comments.reverse()
-                    li.video__comment(data-id=comment.id)
-                        a(href=`/users/${comment.owner._id}`)
-                            if comment.owner.avatarUrl.includes("k.kakaocdn.net")
-                                img.video__comments__avatar(src=comment.owner.avatarUrl)
-                            else
-                                if comment.owner.avatarUrl.startsWith("https://") 
-                                    img.video__comments__avatar(src=comment.owner.avatarUrl,crossorigin)
+                    li.video__comment#videoComment(data-id=comment.id)
+                        div.video__comment
+                            a(href=`/users/${comment.owner._id}`)
+                                if comment.owner.avatarUrl.includes("k.kakaocdn.net")
+                                    img.video__comments__avatar(src=comment.owner.avatarUrl)
                                 else
-                                    img.video__comments__avatar(src="/"+comment.owner.avatarUrl,crossorigin)
-                        div
-                            div.video__comments__owner
-                                div.comment__username 
-                                    a(href=`/users/${comment.owner._id}`)=comment.owner.username
-                                small.comment__createdAt=comment.createdAt.toLocaleString()
-                            span.video__comments-text  #{comment.text}
+                                    if comment.owner.avatarUrl.startsWith("https://") 
+                                        img.video__comments__avatar(src=comment.owner.avatarUrl,crossorigin)
+                                    else
+                                        img.video__comments__avatar(src="/"+comment.owner.avatarUrl,crossorigin)
+                            div
+                                div.video__comments__owner
+                                    div.comment__username 
+                                        a(href=`/users/${comment.owner._id}`)=comment.owner.username
+                                    small.comment__createdAt=comment.createdAt.toLocaleString()
+                                span.video__comments-text  #{comment.text}
+                        if String(comment.owner._id) === String(user._id)               
+                            div.video__comment_iconcontainer#deleteComment
+                                i.fas.fa-trash-alt
                         
 
 block scripts 

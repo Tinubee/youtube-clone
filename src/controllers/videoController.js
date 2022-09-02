@@ -237,6 +237,22 @@ export const createComment = async (req, res) => {
   }
 };
 
+export const deleteComment = async (req, res) => {
+  const {
+    params: { id, commentid },
+  } = req;
+
+  const video = await Video.findById(id).populate("comments");
+  const selectComment = await video.comments.filter(
+    (e) => String(e._id) === String(commentid)
+  );
+
+  video.comments.splice(video.comments.indexOf(selectComment), 1);
+  await video.save();
+
+  return res.sendStatus(201);
+};
+
 export const like = async (req, res) => {
   const { id } = req.params;
   const { user } = req.session;

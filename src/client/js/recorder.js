@@ -1,6 +1,7 @@
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 
 const actionBtn = document.getElementById("actionBtn");
+const seeCameraBtn = document.getElementById("seeCamera");
 const video = document.getElementById("preview");
 
 let stream;
@@ -63,12 +64,12 @@ const handleDownload = async () => {
   URL.revokeObjectURL(videoFile);
 
   actionBtn.disabled = false;
-  actionBtn.innerText = "Record Again";
+  actionBtn.innerText = "다시 녹화하기";
   actionBtn.addEventListener("click", handleStart);
 };
 
 const handleStart = () => {
-  actionBtn.innerText = "Stop Recording";
+  actionBtn.innerText = "녹화 중지";
   actionBtn.removeEventListener("click", handleStart);
 
   recorder = new MediaRecorder(stream, { mimeType: "video/webm" });
@@ -78,7 +79,7 @@ const handleStart = () => {
     video.src = videoFile;
     video.loop = true;
     video.play();
-    actionBtn.innerText = "Download";
+    actionBtn.innerText = "다운로드";
     actionBtn.disabled = false;
     actionBtn.addEventListener("click", handleDownload);
   };
@@ -89,6 +90,11 @@ const handleStart = () => {
 };
 
 const init = async () => {
+  if (stream) {
+    seeCameraBtn.innerText = "카메라 연결";
+    window.location.reload();
+    return;
+  }
   stream = await navigator.mediaDevices.getUserMedia({
     audio: false,
     video: {
@@ -98,7 +104,12 @@ const init = async () => {
   });
   video.srcObject = stream;
   video.play();
+  actionBtn.disabled = false;
+  seeCameraBtn.innerText = "카메라 연결 해제";
 };
-
-init();
+const handleSeeCamera = () => {
+  init();
+};
 actionBtn.addEventListener("click", handleStart);
+actionBtn.disabled = true;
+seeCameraBtn.addEventListener("click", handleSeeCamera);
