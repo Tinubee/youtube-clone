@@ -60,7 +60,21 @@
   height: 40px;
   border-radius: 50%;
 }
-
+.video__comments_notlogin{
+  display: flex;
+  align-items: center;
+  border: 1px solid white;
+  border-radius: 10px;
+  justify-content: center;
+  opacity: 0.7;
+  a {
+    margin-left: 10px;
+    text-decoration: underline;
+    &:hover{
+      color: aqua;
+    }
+  }
+}
 .video__comments {
   display: flex;
   align-items: center;

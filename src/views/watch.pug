@@ -43,15 +43,18 @@ block content
         div.video__bottom
             div.video__owner-container#videoOwner(data-id=video.owner._id)
                 div.video__owner-info
-                    if video.owner.avatarUrl.includes("k.kakaocdn.net")
-                        img.video__owner-avatar(src=video.owner.avatarUrl)
-                    else
-                        if video.owner.avatarUrl.startsWith("https://") 
-                            img.video__owner-avatar(src=video.owner.avatarUrl,crossorigin)
-                        else 
-                            img.video__owner-avatar(src="/"+video.owner.avatarUrl,crossorigin)
-                    div.video__owner
-                        a(href=`/users/${video.owner._id}`)=video.owner.name
+                    a(href=`/users/${video.owner._id}`)
+                        if video.owner.avatarUrl.includes("k.kakaocdn.net")
+                            img.video__owner-avatar(src=video.owner.avatarUrl)
+                        else
+                            if video.owner.avatarUrl.startsWith("https://") 
+                                img.video__owner-avatar(src=video.owner.avatarUrl,crossorigin)
+                            else 
+                                img.video__owner-avatar(src="/"+video.owner.avatarUrl,crossorigin)
+                    div.video__owner-name
+                        div.video__owner
+                            a(href=`/users/${video.owner._id}`)=video.owner.name
+                        span 구독자 #{video.owner.subscriber.length} 명
                 if String(video.owner._id) !== String(user._id) 
                     div.video__subscript-container
                         div#subscriptBtn(data-id=isSubsLength)
@@ -70,9 +73,13 @@ block content
                                 else 
                                     img.video__comments__avatar(src="/"+user.avatarUrl,crossorigin)
                     form.video__comments-form#commentForm
-                        textarea.video__comment-textarea(name="",row="1",cols="50",placeholder="Write a comment...")
+                        textarea.video__comment-textarea(name="",row="1",cols="50",placeholder="댓글을 달아주세요...")
                         button.video__comment-addbtn 댓글
-        
+            else 
+                div.video__comments_notlogin
+                    span 로그인 후 댓글을 남겨주세요. 
+                    a(href="/login")  로그인 하러가기 &rarr;
+                    
         if String(video.owner._id) === String(user._id)
             a(href=`${video.id}/edit`) Edit Video &rarr;
             br
@@ -81,16 +88,18 @@ block content
             ul 
                 each comment in video.comments.reverse()
                     li.video__comment(data-id=comment.id)
-                        if comment.owner.avatarUrl.includes("k.kakaocdn.net")
-                            img.video__comments__avatar(src=comment.owner.avatarUrl)
-                        else
-                            if comment.owner.avatarUrl.startsWith("https://") 
-                                img.video__comments__avatar(src=comment.owner.avatarUrl,crossorigin)
+                        a(href=`/users/${comment.owner._id}`)
+                            if comment.owner.avatarUrl.includes("k.kakaocdn.net")
+                                img.video__comments__avatar(src=comment.owner.avatarUrl)
                             else
-                                img.video__comments__avatar(src="/"+comment.owner.avatarUrl,crossorigin)
+                                if comment.owner.avatarUrl.startsWith("https://") 
+                                    img.video__comments__avatar(src=comment.owner.avatarUrl,crossorigin)
+                                else
+                                    img.video__comments__avatar(src="/"+comment.owner.avatarUrl,crossorigin)
                         div
                             div.video__comments__owner
-                                div.comment__username #{comment.owner.username}
+                                div.comment__username 
+                                    a(href=`/users/${comment.owner._id}`)=comment.owner.username
                                 small.comment__createdAt=comment.createdAt.toLocaleString()
                             span.video__comments-text  #{comment.text}
                         

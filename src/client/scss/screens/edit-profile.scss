@@ -11,5 +11,8 @@ form {
     text-align: center;
     a {
       text-decoration: underline;
+      &:hover{
+        color: aqua;
+      }
     }
   }

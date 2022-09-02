@@ -221,6 +221,7 @@ export const createComment = async (req, res) => {
   } = req;
 
   const video = await Video.findById(id);
+
   if (!video) {
     return res.sendStatus(404);
   } else {
