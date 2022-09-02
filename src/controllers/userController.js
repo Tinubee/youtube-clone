@@ -2,15 +2,6 @@ import User from "../models/User";
 import fetch from "cross-fetch";
 import bcrypt from "bcrypt";
 
-function onGeoOk(position) {
-  const lat = position.coords.latitude;
-  const lng = position.coords.longitude;
-  console.log("You live in", lat, lng);
-}
-function onGeoError() {
-  alert("Can't find you. No weather for you.");
-}
-
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
 };
@@ -297,6 +288,7 @@ export const postChangePassword = async (req, res) => {
 export const see = async (req, res) => {
   const { user } = req.session;
   const { id } = req.params;
+  let isSubsLength = 0;
   if (id === "undefined") {
     return res.redirect("/login");
   }
@@ -312,10 +304,18 @@ export const see = async (req, res) => {
   if (!seeuser) {
     return res.status(404).render("404", { pageTitle: "User not found" });
   }
+  if (user) {
+    const findUser = await User.findById(user._id).populate("subsript");
+    const isSubs = findUser.subsript.filter(
+      (e) => e.username === seeuser.username
+    );
+    isSubsLength = isSubs.length;
+  }
 
   return res.render("users/profile", {
     pageTitle: "User Profile",
     user,
     seeuser,
+    isSubsLength,
   });
 };

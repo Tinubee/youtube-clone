@@ -2,7 +2,7 @@ extends ../layout.pug
 include ../mixins/video
 
 block content
-    div.profile__data
+    div.profile__data#seeUserId(data-id=seeuser.id)
         if !seeuser.avatarUrl
             span 😀
         else
@@ -15,10 +15,15 @@ block content
                     img.header__avatar(src="/"+seeuser.avatarUrl,crossorigin).avatar
         div.user_name #{seeuser.name}
         div.user_subscriber 구독자 #{seeuser.subscriber.length} 명
-    
+        if seeuser.username !== user.username
+            div.video__subscript-container
+                div#subscriptBtn(data-id=isSubsLength) 구독
     div.video-grid
         each video in seeuser.videos
             +video(video)
         else
             span.empty__message No videos found
     
+block scripts 
+    if isLoggedIn
+        script(src="/static/js/userprofile.js")

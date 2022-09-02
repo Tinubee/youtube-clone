@@ -83,7 +83,6 @@ const formatTime = (seconds) => {
 
 const handleLoadedMetadata = () => {
   if (!isNaN(video.duration)) {
-    console.log(video.duration);
     totalTime.innerText = formatTime(Math.floor(video.duration));
     timeline.max = Math.floor(video.duration);
   }
@@ -156,7 +155,7 @@ const handleShareVideo = () => {
 };
 
 checkIsLike();
-checkIsSubs();
+if (subscriptBtn) checkIsSubs();
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);

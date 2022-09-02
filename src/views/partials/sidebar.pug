@@ -1,24 +1,36 @@
 div.sidebar
     ul.nav
       li
-        a(href="/") 
+        a(href="/")#home
             i.fas.fa-home  홈
       li
-        a(href="/search") 
+        a(href="/search")#search 
             i.fas.fa-search  탐색
       li
-        a(href="/") 
+        if isLoggedIn
+          a(href="/subscribe")#subscribe 
+            i.fas.fa-heart  구독
+        else 
+          a(href="/login")#subscribe 
             i.fas.fa-heart  구독
       li
-        a(href="/picture") 
+        a(href="/picture")#picture 
             i.fas.fa-image  사진
       li
         if isLoggedIn
-          a(href=`/users/${user._id}`) 
+          a(href=`/users/${user._id}`)#myVideo(data-id=user._id) 
             i.fas.fa-video  내 동영상
         else 
           a(href=`/login`) 
             i.fas.fa-video  내 동영상
       li
-        a(href="/likevideos") 
+        if isLoggedIn
+          a(href="/likevideos")#likeVideo 
             i.fas.fa-thumbs-up  좋아요
+        else 
+          a(href=`/login`) 
+            i.fas.fa-thumbs-up  좋아요
+
+block scripts 
+    if isLoggedIn
+        script(src="/static/js/userprofile.js")

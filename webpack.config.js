@@ -10,6 +10,8 @@ module.exports = {
     recorder: BASE_JSPATH + "recorder.js",
     commentSection: BASE_JSPATH + "commentSection.js",
     location: BASE_JSPATH + "location.js",
+    userprofile: BASE_JSPATH + "userprofile.js",
+    hashtag: BASE_JSPATH + "hashtag.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

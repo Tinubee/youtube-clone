@@ -11,6 +11,7 @@ import {
   search,
   picture,
   likeVideos,
+  subscribeUser,
 } from "../controllers/videoController";
 import { publicOnlyMiddleware } from "../middlewares";
 
@@ -26,6 +27,7 @@ rootRouter
 rootRouter.get("/search", search);
 rootRouter.get("/picture", picture);
 rootRouter.get("/likevideos", likeVideos);
+rootRouter.get("/subscribe", subscribeUser);
 rootRouter.get("/:hashtag", hashtaghome);
 
 export default rootRouter;

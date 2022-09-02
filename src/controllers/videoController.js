@@ -11,6 +11,10 @@ export const likeVideos = async (req, res) => {
   return res.render("likevideos", { pageTitle: "Like Videos" });
 };
 
+export const subscribeUser = async (req, res) => {
+  return res.render("subscribe", { pageTitle: "Subscribe User" });
+};
+
 export const hashtaghome = async (req, res) => {
   const { hashtag } = req.params;
 

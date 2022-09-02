@@ -1,5 +1,5 @@
 mixin hashtag(hashtag)
     if hashtag === "전체"
-        a(href=`/`).hashtag=hashtag.replace("#","")
+        a(href=`/` name="전체").hashtag#hashHome=hashtag.replace("#","")
     else 
-        a(href=`/${hashtag.replace("#","")}`).hashtag=hashtag.replace("#","")
+        a(href=`/${hashtag.replace("#","")}` name=hashtag.replace("#","")).hashtag=hashtag.replace("#","")
