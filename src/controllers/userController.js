@@ -314,7 +314,7 @@ export const see = async (req, res) => {
   }
 
   return res.render("users/profile", {
-    pageTitle: user.name,
+    pageTitle: "User Profile",
     user,
     seeuser,
   });

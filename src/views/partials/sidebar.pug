@@ -13,7 +13,11 @@ div.sidebar
         a(href="/picture") 
             i.fas.fa-image  사진
       li
-        a(href=`/users/${user._id}`) 
+        if isLoggedIn
+          a(href=`/users/${user._id}`) 
+            i.fas.fa-video  내 동영상
+        else 
+          a(href=`/login`) 
             i.fas.fa-video  내 동영상
       li
         a(href="/likevideos") 
