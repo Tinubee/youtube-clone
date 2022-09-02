@@ -10,7 +10,7 @@ function getLocation(coords) {
     .then((response) => response.json())
     .then((data) => {
       const name = data.name;
-      location.value = `${name}`;
+      location.value = name;
     });
 }
 
