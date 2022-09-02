@@ -60,8 +60,7 @@ block content
                         if isLoggedIn
                             div#subscriptBtn(data-id=isSubsLength) 
                         else 
-                            div#subscriptBtn
-                                a(href="/login")
+                            a(href="/login")#subscriptBtn
                                 
             if isLoggedIn
                 div.video__comments#loginUser(data-id=user._id)
