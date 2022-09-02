@@ -25,6 +25,7 @@ video.volume = volumeValue;
 
 const checkIsSubs = () => {
   const { id } = subscriptBtn.dataset;
+
   if (id === "1") {
     subscriptBtn.style.backgroundColor = "gray";
     subscriptBtn.innerText = "구독중 🔔";

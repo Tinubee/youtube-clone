@@ -280,7 +280,7 @@ export const like = async (req, res) => {
       await findUser.save();
     }
   } else {
-    req.flash("error", "Please Login if you want like to video");
+    req.flash("error", "동영상에 좋아요를 누르시려면 로그인을 해주세요.");
   }
 
   return res.sendStatus(200);

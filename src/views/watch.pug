@@ -57,8 +57,12 @@ block content
                         span 구독자 #{video.owner.subscriber.length} 명
                 if String(video.owner._id) !== String(user._id) 
                     div.video__subscript-container
-                        div#subscriptBtn(data-id=isSubsLength)
-
+                        if isLoggedIn
+                            div#subscriptBtn(data-id=isSubsLength) 
+                        else 
+                            div#subscriptBtn
+                                a(href="/login")
+                                
             if isLoggedIn
                 div.video__comments#loginUser(data-id=user._id)
                     a(href=`/users/${user._id}`)

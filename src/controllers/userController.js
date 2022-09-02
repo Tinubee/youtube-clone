@@ -286,7 +286,7 @@ export const postChangePassword = async (req, res) => {
 };
 
 export const see = async (req, res) => {
-  const { user } = req.session;
+  let { user } = req.session;
   const { id } = req.params;
   let isSubsLength = 0;
   if (id === "undefined") {
@@ -310,6 +310,8 @@ export const see = async (req, res) => {
       (e) => e.username === seeuser.username
     );
     isSubsLength = isSubs.length;
+  } else {
+    user = [];
   }
 
   return res.render("users/profile", {

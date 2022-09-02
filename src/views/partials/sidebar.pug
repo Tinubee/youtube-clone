@@ -18,7 +18,7 @@ div.sidebar
             i.fas.fa-image  사진
       li
         if isLoggedIn
-          a(href=`/users/${user._id}`)#myVideo(data-id=user._id) 
+          a(href=`/users/${user._id}`)#myVideo(data-id=user===[] ? undefined : user._id) 
             i.fas.fa-video  내 동영상
         else 
           a(href=`/login`) 

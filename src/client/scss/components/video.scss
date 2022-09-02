@@ -137,7 +137,8 @@
   .video__comment_iconcontainer {
     i {
       cursor: pointer;
-      &:hover{
+
+      &:hover {
         color: rgba(255, 0, 0, 0.8);
         font-size: 24px;
       }
@@ -172,6 +173,9 @@
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
+  a {
+    padding: 10px 10px;
+  }
 }
 
 .video__description {

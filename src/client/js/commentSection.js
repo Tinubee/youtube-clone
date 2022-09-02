@@ -71,7 +71,7 @@ const handleMouseLeave = (event) => {
 
 const handleSubscription = async () => {
   const { id } = videoOwner.dataset;
-  const response = await fetch(`/api/user/${id}/subscript`, {
+  await fetch(`/api/user/${id}/subscript`, {
     method: "POST",
   });
 

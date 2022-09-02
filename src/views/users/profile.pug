@@ -17,7 +17,11 @@ block content
         div.user_subscriber 구독자 #{seeuser.subscriber.length} 명
         if seeuser.username !== user.username
             div.video__subscript-container
-                div#subscriptBtn(data-id=isSubsLength) 구독
+                if isLoggedIn
+                    div#subscriptBtn(data-id=isSubsLength) 구독
+                else
+                    div#subscriptBtn
+                        a(href="/login") 구독
     div.video-grid
         each video in seeuser.videos
             +video(video)
