@@ -82,7 +82,7 @@ if (form) {
   form.addEventListener("submit", handleSubmit);
 }
 
-if (videoOwner.dataset.id !== loginUser.dataset.id) {
+if (videoOwner?.dataset?.id !== loginUser?.dataset?.id) {
   subscriptButton.addEventListener("click", handleSubscription);
 }
 

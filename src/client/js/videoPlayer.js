@@ -1,14 +1,14 @@
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
-const playBtnIcon = playBtn.querySelector("i");
+const playBtnIcon = playBtn?.querySelector("i");
 const muteBtn = document.getElementById("mute");
-const muteBtnIcon = muteBtn.querySelector("i");
+const muteBtnIcon = muteBtn?.querySelector("i");
 const volumeRange = document.getElementById("volume");
 const currenTime = document.getElementById("currenTime");
 const totalTime = document.getElementById("totalTime");
 const timeline = document.getElementById("timeline");
 const fullScreenBtn = document.getElementById("fullScreen");
-const fullScreenIcon = fullScreenBtn.querySelector("i");
+const fullScreenIcon = fullScreenBtn?.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
 const videoLike = document.getElementById("videoLike");
@@ -21,7 +21,7 @@ const subscriptBtn = document.getElementById("subscriptBtn");
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
 let volumeValue = 0.5;
-video.volume = volumeValue;
+// video.volume = volumeValue;
 
 const checkIsSubs = () => {
   const { id } = subscriptBtn.dataset;
@@ -36,7 +36,7 @@ const checkIsSubs = () => {
 };
 
 const checkIsLike = () => {
-  const { id } = videoLike.dataset;
+  const { id } = videoLike?.dataset;
 
   if (id === "1") {
     likeIcon.style.color = "#3ea6ff";
@@ -87,6 +87,7 @@ const handleLoadedMetadata = () => {
     totalTime.innerText = formatTime(Math.floor(video.duration));
     timeline.max = Math.floor(video.duration);
   }
+  video.volume = volumeValue;
 };
 
 const handleTimeUpdate = () => {
@@ -155,20 +156,21 @@ const handleShareVideo = () => {
   console.log("share");
 };
 
-checkIsLike();
-if (subscriptBtn) checkIsSubs();
-playBtn.addEventListener("click", handlePlayClick);
-muteBtn.addEventListener("click", handleMuteClick);
-volumeRange.addEventListener("input", handleVolumeChange);
-video.addEventListener("canplay", handleLoadedMetadata);
-handleLoadedMetadata();
-video.addEventListener("timeupdate", handleTimeUpdate);
-video.addEventListener("ended", handleEnded);
-videoContainer.addEventListener("mousemove", handleMouseMove);
-videoContainer.addEventListener("mouseleave", handleMouseLeave);
-timeline.addEventListener("input", handleTimelineChange);
-fullScreenBtn.addEventListener("click", handleFullscreen);
+playBtn?.addEventListener("click", handlePlayClick);
+muteBtn?.addEventListener("click", handleMuteClick);
+volumeRange?.addEventListener("input", handleVolumeChange);
+video?.addEventListener("canplay", handleLoadedMetadata);
+// handleLoadedMetadata();
+video?.addEventListener("timeupdate", handleTimeUpdate);
+video?.addEventListener("ended", handleEnded);
+videoContainer?.addEventListener("mousemove", handleMouseMove);
+videoContainer?.addEventListener("mouseleave", handleMouseLeave);
+timeline?.addEventListener("input", handleTimelineChange);
+fullScreenBtn?.addEventListener("click", handleFullscreen);
 
-likeIcon.addEventListener("click", handleLikeVideo);
-unlikeIcon.addEventListener("click", handleUnLikeVideo);
-shareIcon.addEventListener("click", handleShareVideo);
+likeIcon?.addEventListener("click", handleLikeVideo);
+unlikeIcon?.addEventListener("click", handleUnLikeVideo);
+shareIcon?.addEventListener("click", handleShareVideo);
+
+if (subscriptBtn) checkIsSubs();
+if (video?.readyState) checkIsLike();
