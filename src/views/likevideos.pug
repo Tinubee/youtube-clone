@@ -1,4 +1,9 @@
 extends layout.pug
+include mixins/video
 
 block content
-    span 좋아요한 동영상
+    div.video-grid
+        each video in likeVideos
+            +video(video)
+        else
+            span.empty__message No videos found
