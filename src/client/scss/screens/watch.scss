@@ -34,15 +34,27 @@
   .video__owner-name {
     .video__owner {
       font-size: 18px;
+
       a {
         color: cornflowerblue;
         text-decoration: underline;
       }
     }
-    span{
+
+    span {
       font-size: 13px;
       opacity: 0.5;
     }
   }
+}
 
+.video-edit {
+  &:hover {
+    color: greenyellow;
+  }
+}
+.video-delete {
+  &:hover {
+    color: red;
+  }
 }

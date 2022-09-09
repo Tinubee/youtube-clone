@@ -8,14 +8,13 @@ export const picture = async (req, res) => {
 
 export const likeVideos = async (req, res) => {
   const { user } = req.session;
-  const likeVideos = [];
+  let likeVideos = [];
   const myData = await User.findById(user._id).populate("likevideos");
 
   for (let i = 0; i < myData.likevideos.length; i++) {
     const find = await Video.findById(myData.likevideos[i]._id).populate(
       "owner"
     );
-    console.log(find);
     likeVideos.push(find);
   }
 

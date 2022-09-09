@@ -84,10 +84,11 @@ block content
                     a(href="/login")  로그인 하러가기 &rarr;
                     
         if String(video.owner._id) === String(user._id)
-            a(href=`${video.id}/edit`) Edit Video &rarr;
+            a(href=`${video.id}/edit`).video-edit 비디오 수정하기 &rarr;
             br
-            a(href=`${video.id}/delete`) Delete Video &rarr;
+            a(href=`${video.id}/delete`).video-delete 비디오 삭제하기 &rarr;
         div.video__commentlist
+            span 댓글 #{video.comments.length}개
             ul 
                 each comment in video.comments.reverse()
                     li.video__comment#videoComment(data-id=comment.id)
