@@ -327,18 +327,17 @@ export const userSubscript = async (req, res) => {
 
     if (alreadySubs.length === 0) {
       subscriptUser.subscriber.push(user);
-      await subscriptUser.save();
       findMe.subsript.push(subscriptUser);
-      await findMe.save();
     } else {
-      subscriptUser.subscriber.splice(
-        subscriptUser.subscriber.indexOf(user),
-        1
+      subscriptUser.subscriber = subscriptUser.subscriber.filter(
+        (e) => String(e._id) !== String(user._id)
       );
-      await subscriptUser.save();
-      findMe.subsript.splice(findMe.subsript.indexOf(subscriptUser), 1);
-      await findMe.save();
+      findMe.subsript = findMe.subsript.filter(
+        (e) => String(e._id) !== String(subscriptUser._id)
+      );
     }
+    await subscriptUser.save();
+    await findMe.save();
   } else {
     return res.sendStatus(400);
   }
