@@ -3,7 +3,7 @@ const form = document.getElementById("commentForm");
 const subscriptButton = document.getElementById("subscriptBtn");
 const videoOwner = document.getElementById("videoOwner");
 const loginUser = document.getElementById("loginUser");
-const deleteComment = document.getElementById("deleteComment");
+const deleteComment = document.querySelectorAll("#deleteComment");
 let deleteBtnIcon;
 const videoComment = document.getElementById("videoComment");
 
@@ -47,7 +47,7 @@ const handleSubmit = async (event) => {
 const handleDeleteComment = async (event) => {
   event.preventDefault();
   const videoId = videoContainer.dataset.id;
-  const commentId = videoComment.dataset.id;
+  const commentId = event.target.dataset.id;
   const response = await fetch(
     `/api/videos/${videoId}/deletecomment/${commentId}`,
     {
@@ -87,8 +87,10 @@ if (videoOwner?.dataset?.id !== loginUser?.dataset?.id) {
 }
 
 if (deleteComment) {
-  deleteBtnIcon = deleteComment.querySelector("i");
-  deleteComment.addEventListener("click", handleDeleteComment);
-  deleteComment.addEventListener("mouseover", handleDeleteBtnIcon);
-  deleteComment.addEventListener("mouseleave", handleMouseLeave);
+  deleteComment.forEach((DeleteBtn) => {
+    deleteBtnIcon = DeleteBtn.querySelectorAll("i");
+    DeleteBtn.addEventListener("click", handleDeleteComment);
+    DeleteBtn.addEventListener("mouseover", handleDeleteBtnIcon);
+    DeleteBtn.addEventListener("mouseleave", handleMouseLeave);
+  });
 }

@@ -91,7 +91,7 @@ block content
             span 댓글 #{video.comments.length}개
             ul 
                 each comment in video.comments.reverse()
-                    li.video__comment#videoComment(data-id=comment.id)
+                    li.video__comment#videoComment
                         div.video__comment
                             a(href=`/users/${comment.owner._id}`)
                                 if comment.owner.avatarUrl.includes("k.kakaocdn.net")
@@ -109,7 +109,7 @@ block content
                                 span.video__comments-text  #{comment.text}
                         if String(comment.owner._id) === String(user._id)               
                             div.video__comment_iconcontainer#deleteComment
-                                i.fas.fa-trash-alt
+                                i.fas.fa-trash-alt(data-id=comment.id)
 block scripts 
     script(src="/static/js/videoPlayer.js")
     if isLoggedIn

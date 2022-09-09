@@ -268,11 +268,11 @@ export const deleteComment = async (req, res) => {
   } = req;
 
   const video = await Video.findById(id).populate("comments");
-  const selectComment = video.comments.filter(
-    (e) => String(e._id) === String(commentid)
+
+  video.comments = video.comments.filter(
+    (e) => String(e._id) !== String(commentid)
   );
 
-  video.comments.splice(video.comments.indexOf(selectComment), 1);
   await video.save();
 
   return res.sendStatus(201);
