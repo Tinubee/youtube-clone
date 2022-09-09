@@ -14,4 +14,7 @@ mixin subscribes(sub)
         div.subscribe-info
             div.subscribe_username #{sub.name}
             div.subscribe_usersubscribers 구독자 #{sub.subscriber.length}명
+            br
             div.subscribe_uservideo 동영상 : #{sub.videos.length}개
+            br
+            a(href=`/users/${sub._id}`).subscribe_userprofile 프로필 보러가기 &rarr;

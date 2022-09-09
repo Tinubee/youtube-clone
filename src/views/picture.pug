@@ -1,4 +1,8 @@
 extends layout.pug
 
 block content
-    span 부기사진
+    div.picture-screen
+        a(href="/picture").picutre
+            i.fas.fa-image  다른사진보기
+        div.picutre-grid
+            img.bugi_picture(src=imgUrl)

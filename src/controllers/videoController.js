@@ -3,7 +3,12 @@ import User from "../models/User";
 import Comment from "../models/Comment";
 
 export const picture = async (req, res) => {
-  return res.render("picture", { pageTitle: "picture" });
+  const number = parseInt(Math.random() * 32) + 1;
+  const imgUrl =
+    "https://res.cloudinary.com/dmvu7wol7/image/upload/v1647151572/부기/부기" +
+    number +
+    ".jpg";
+  return res.render("picture", { pageTitle: "picture", imgUrl, number });
 };
 
 export const likeVideos = async (req, res) => {
