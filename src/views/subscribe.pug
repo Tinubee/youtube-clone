@@ -1,4 +1,10 @@
 extends layout.pug
+include mixins/subscribes 
 
 block content
-    span 내가 구독한 유저
+    h1.sub-title 내가 구독한 유저 목록
+    div.main-grid
+        each sub in subscribe 
+            +subscribes(sub)
+        else
+            span.empty__message 구독한 사람이 없습니다.

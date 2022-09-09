@@ -1,0 +1,36 @@
+.subscribe_useravatar{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.sub-title{
+    font-size: 24px;
+    font-weight: 600;
+}
+.main-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+    margin: 30px 0px;
+}
+
+.subscribe-grid{
+    display: flex;
+    padding: 30px;
+    gap: 10px;
+    border-radius: 10px;
+    background-color: rgba(128,128,128,0.2);
+    .subscribe-info{
+        .subscribe_username{
+            font-weight: 800;
+            font-size: 18px;
+        }
+        .subscribe_usersubscribers{
+            font-size: 14px;
+            opacity: 0.5;
+        }
+        .subscribe_uservideo{
+            font-size: 16px;
+        }
+    }
+}

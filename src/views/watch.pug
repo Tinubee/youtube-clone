@@ -103,7 +103,7 @@ block content
                             div
                                 div.video__comments__owner
                                     div.comment__username 
-                                        a(href=`/users/${comment.owner._id}`)=comment.owner.username
+                                        a(href=`/users/${comment.owner._id}`)=comment.owner.name
                                     small.comment__createdAt=comment.createdAt.toLocaleString()
                                 span.video__comments-text  #{comment.text}
                         if String(comment.owner._id) === String(user._id)               

@@ -1,7 +1,6 @@
 import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
-import { captureRejectionSymbol } from "connect-mongo";
 
 export const picture = async (req, res) => {
   return res.render("picture", { pageTitle: "picture" });
@@ -12,7 +11,11 @@ export const likeVideos = async (req, res) => {
 };
 
 export const subscribeUser = async (req, res) => {
-  return res.render("subscribe", { pageTitle: "Subscribe User" });
+  const { user } = req.session;
+  const myData = await User.findById(user._id).populate("subsript");
+  const subscribe = myData.subsript;
+
+  return res.render("subscribe", { pageTitle: "Subscribe User", subscribe });
 };
 
 export const hashtaghome = async (req, res) => {

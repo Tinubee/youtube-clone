@@ -17,19 +17,11 @@ div.sidebar
         a(href="/picture")#picture 
             i.fas.fa-image  사진
       li
-        if isLoggedIn
-          a(href=`/users/${user._id}`)#myVideo(data-id=user._id)
-            i.fas.fa-video  내 동영상
-        else 
-          a(href=`/login`) 
-            i.fas.fa-video  내 동영상
+        a(href= isLoggedIn ? `/users/${user._id}` : "/login")#myVideo(data-id=user._id)
+          i.fas.fa-video  내 동영상
       li
-        if isLoggedIn
-          a(href="/likevideos")#likeVideo 
-            i.fas.fa-thumbs-up  좋아요
-        else 
-          a(href=`/login`) 
-            i.fas.fa-thumbs-up  좋아요
+        a(href= isLoggedIn ? "/likevideos" : "/login")#likeVideo 
+          i.fas.fa-thumbs-up  좋아요
 
 block scripts 
     if isLoggedIn

@@ -88,6 +88,7 @@ const handleLoadedMetadata = () => {
     timeline.max = Math.floor(video.duration);
   }
   video.volume = volumeValue;
+  checkIsLike();
 };
 
 const handleTimeUpdate = () => {
@@ -173,4 +174,3 @@ unlikeIcon?.addEventListener("click", handleUnLikeVideo);
 shareIcon?.addEventListener("click", handleShareVideo);
 
 if (subscriptBtn) checkIsSubs();
-if (video?.readyState) checkIsLike();

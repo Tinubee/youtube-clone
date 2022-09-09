@@ -1,0 +1,17 @@
+mixin subscribes(sub)
+    div.subscribe-grid
+        a(href=`/users/${sub._id}`)
+            if !sub.avatarUrl
+                span 😀
+            else
+                if sub.avatarUrl.includes("k.kakaocdn.net")
+                    img.subscribe_useravatar(src=sub.avatarUrl)
+                else
+                    if sub.avatarUrl.startsWith("https://") 
+                        img.subscribe_useravatar(src=sub.avatarUrl,crossorigin)
+                    else 
+                        img.subscribe_useravatar(src="/"+sub.avatarUrl,crossorigin)
+        div.subscribe-info
+            div.subscribe_username #{sub.name}
+            div.subscribe_usersubscribers 구독자 #{sub.subscriber.length}명
+            div.subscribe_uservideo 동영상 : #{sub.videos.length}개
