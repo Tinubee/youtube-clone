@@ -16,6 +16,8 @@ export const likeVideos = async (req, res) => {
   let likeVideos = [];
   const myData = await User.findById(user._id).populate("likevideos");
 
+  console.log(myData);
+
   for (let i = 0; i < myData.likevideos.length; i++) {
     const find = await Video.findById(myData.likevideos[i]._id).populate(
       "owner"
@@ -266,7 +268,7 @@ export const deleteComment = async (req, res) => {
   } = req;
 
   const video = await Video.findById(id).populate("comments");
-  const selectComment = await video.comments.filter(
+  const selectComment = video.comments.filter(
     (e) => String(e._id) === String(commentid)
   );
 
@@ -281,23 +283,24 @@ export const like = async (req, res) => {
   const { user } = req.session;
 
   const video = await Video.findById(id).populate("like");
+
   if (!video) return res.sendStatus(404);
 
   if (user) {
     const findUser = await User.findById(user._id).populate("likevideos");
-    const exist = video.like.filter((e) => e.username === findUser.username);
+    const exist = video.like.find((e) => String(e._id) === String(user._id));
 
-    if (exist.length === 0) {
-      video.like.push(user);
-      video.save();
+    if (exist === undefined) {
+      video.like.push(findUser);
       findUser.likevideos.push(video);
-      findUser.save();
     } else {
-      video.like.splice(video.like.indexOf(user._id), 1);
-      findUser.likevideos.splice(findUser.likevideos.indexOf(id), 1);
-      await video.save();
-      await findUser.save();
+      video.like = video.like.filter((e) => String(e._id) !== String(user._id));
+      findUser.likevideos = findUser.likevideos.filter(
+        (e) => String(e._id) !== String(id)
+      );
     }
+    await video.save();
+    await findUser.save();
   } else {
     req.flash("error", "동영상에 좋아요를 누르시려면 로그인을 해주세요.");
   }
