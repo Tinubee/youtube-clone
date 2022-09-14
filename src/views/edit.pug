@@ -1,9 +1,16 @@
 extends layout.pug
 
 block content
-    h4 Update video 
-    form(method="POST")
+    form(method="POST", enctype="multipart/form-data")
+        label(for="thumb" id="thumb-label")
+            div#preview-image
+            i.fas.fa-image
+            input(type="file", accept="image/*", required, id="thumb", name="thumb")
         input(name="title",placeholder="Video Title", value=video.title,required)
         input(placeholder="Description", required, type="text", name="description", maxlength="20",value=video.description)
         input(placeholder="Hashtags, separated by comma.", required, type="text", name="hashtags", value=video.hashtags.join().replace(',', ' '))
-        input(value="Save", type ="submit")
+        input(value="수정하기", type ="submit")
+
+
+block scripts 
+    script(src="/static/js/editVideo.js")

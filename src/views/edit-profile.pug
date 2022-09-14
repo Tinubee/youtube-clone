@@ -17,7 +17,7 @@ block content
                     
     form(method="POST", enctype="multipart/form-data").edit-profile__form
         label.edit-avatarfile(for="avatar" id="file-label")
-            img(id="preview-image" src="").edit-profile_preview
+            div#edit-profile_image.edit-profile_preview
             i.fas.fa-image
             input(type="file", id="avatar", name="avatar", accept="image/*")
         input(placeholder="이름", name="name", type="text", required, value=user.name)

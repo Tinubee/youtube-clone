@@ -12,6 +12,7 @@ module.exports = {
     location: BASE_JSPATH + "location.js",
     userprofile: BASE_JSPATH + "userprofile.js",
     hashtag: BASE_JSPATH + "hashtag.js",
+    editVideo: BASE_JSPATH + "editVideo.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

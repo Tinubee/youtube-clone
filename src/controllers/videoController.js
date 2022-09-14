@@ -141,6 +141,9 @@ export const postEdit = async (req, res) => {
     user: { _id },
   } = req.session;
   const { title, description, hashtags } = req.body;
+  const { thumb } = req.files;
+  const isHeroku = process.env.NODE_ENV === "production";
+
   const video = await Video.findById(id);
 
   if (!video) {
@@ -155,6 +158,7 @@ export const postEdit = async (req, res) => {
     title,
     description,
     hashtags: Video.formatHashtags(hashtags),
+    thumbUrl: isHeroku ? thumb[0].location : thumb[0].path,
   });
 
   req.flash("success", "Video updated successfully");

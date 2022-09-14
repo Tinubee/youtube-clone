@@ -39,11 +39,13 @@ function handleInputImage(event) {
   if (input.files && input.files[0]) {
     const reader = new FileReader();
     reader.onload = (e) => {
-      const previewImage = document.getElementById("preview-image");
+      const previewImage = document.getElementById("edit-profile_image");
       const imageIcon = fileLabel.querySelector("i");
+      const imageUrl = URL.createObjectURL(input.files[0]);
       imageIcon.classList = "";
-      previewImage.style.width = "150px";
-      previewImage.src = e.target.result;
+      previewImage.style.backgroundImage = `url(${imageUrl})`;
+      previewImage.style.backgroundSize = "cover";
+      previewImage.style.backgroundPosition = "center";
     };
     reader.readAsDataURL(input.files[0]);
   }

@@ -15,7 +15,7 @@ block content
                 i.fas.fa-video
                 input(type="file", accept="video/*", required, id="video", name="video")
             label(for="thumb" id="file-label")
-                img(id="preview-image" src="").preview-thumb
+                div#preview-image
                 i.fas.fa-image
                 input(type="file", accept="image/*", required, id="thumb", name="thumb")
             input(placeholder="제목", required, type="text", name="title", maxlength=80)
