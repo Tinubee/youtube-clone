@@ -4,6 +4,12 @@ const actionBtn = document.getElementById("actionBtn");
 const seeCameraBtn = document.getElementById("seeCamera");
 const video = document.getElementById("preview");
 
+const thumbInput = document.getElementById("thumb");
+const fileLabel = document.getElementById("file-label");
+
+const videoInput = document.getElementById("video");
+const videoLabel = document.getElementById("video-label");
+
 let stream;
 let recorder;
 let videoFile;
@@ -110,6 +116,41 @@ const init = async () => {
 const handleSeeCamera = () => {
   init();
 };
-actionBtn.addEventListener("click", handleStart);
-actionBtn.disabled = true;
-seeCameraBtn.addEventListener("click", handleSeeCamera);
+
+function handleInputImage(event) {
+  const input = event.target;
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const previewImage = document.getElementById("preview-image");
+      const imageIcon = fileLabel.querySelector("i");
+      imageIcon.classList = "";
+      previewImage.src = e.target.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function handleInputVideo(event) {
+  const input = event.target;
+  if (input.files && input.files[0]) {
+    const videoUrl = URL.createObjectURL(input.files[0]);
+    const videoPre = document.getElementById("videofile");
+    const imageIcon = videoLabel.querySelector("i");
+    imageIcon.classList = "";
+
+    videoPre.setAttribute("src", videoUrl);
+    videoPre.play();
+  }
+}
+
+if (actionBtn) {
+  actionBtn.addEventListener("click", handleStart);
+  actionBtn.disabled = true;
+}
+
+if (seeCameraBtn) seeCameraBtn.addEventListener("click", handleSeeCamera);
+
+if (thumbInput) thumbInput.addEventListener("change", handleInputImage);
+
+if (videoInput) videoInput.addEventListener("change", handleInputVideo);

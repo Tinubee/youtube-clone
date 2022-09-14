@@ -1,18 +1,25 @@
 .upload__container {
-    width: 100%;
-    .upload__video {
-      margin-bottom: 20px;
+  width: 100%;
+
+  .upload__video {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    video {
+      max-width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .upload__video_button {
+      width: 50%;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      video {
-        max-width: 100%;
-        margin-bottom: 10px;
-      }
-      .upload__video_button{
-        width: 50%;
-        display: flex;
-        justify-content: space-evenly;
-      }
+      justify-content: space-evenly;
     }
   }
+}
+
+.preview-thumb {
+    height: 200px;
+}
