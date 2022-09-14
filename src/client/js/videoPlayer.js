@@ -46,12 +46,16 @@ const checkIsLike = () => {
 };
 
 const handlePlayClick = (e) => {
+  const { id } = videoContainer.dataset;
   if (video.paused) {
     video.play();
   } else {
     video.pause();
   }
   playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
+  fetch(`/api/videos/${id}/view`, {
+    method: "POST",
+  });
 };
 
 const handleMuteClick = (e) => {
@@ -136,11 +140,7 @@ const handleMouseLeave = () => {
 };
 
 const handleEnded = () => {
-  const { id } = videoContainer.dataset;
   playBtnIcon.classList = "fas fa-redo-alt";
-  fetch(`/api/videos/${id}/view`, {
-    method: "POST",
-  });
 };
 
 const handleLikeVideo = async () => {
